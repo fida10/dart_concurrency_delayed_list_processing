@@ -17,5 +17,15 @@ The function should return a Future<List<int>> with the processed numbers.
  */
 
 Future<List<int>> processListAsync(List<int> input) async{
-  return input.map((e) => e * 2).toList();
+  // List<int> ans = [];
+  // for(int indivInt in input){
+  //   Future.delayed(Duration(milliseconds: 10)).then((_) => ans.add(indivInt * 2));
+  // }
+  // return ans;
+  List<int> ans = [];
+  await for (int indivInt in Stream.fromIterable(input)){
+    await Future.delayed(Duration(milliseconds: 10)).then((_) => ans.add(indivInt * 2));
+  }
+
+  return ans;
 }
